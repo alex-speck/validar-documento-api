@@ -8,6 +8,12 @@ public class ValidateResponseDTO {
     private String message;
     private LocalDateTime validatedAt;
 
+    public ValidateResponseDTO(boolean valid, String message, LocalDateTime validatedAt) {
+        this.valid = valid;
+        this.message = message;
+        this.validatedAt = validatedAt;
+    }
+
     public boolean isValid() {
         return valid;
     }
