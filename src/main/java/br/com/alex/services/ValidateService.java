@@ -16,6 +16,8 @@ public class ValidateService {
 
         if (document == null || document.length() != 11 && document.length() != 14) {
             throw new IllegalArgumentException("O documento deve conter 11 dígitos (CPF) ou 14 dígitos (CNPJ)");
+        } else if(!document.chars().allMatch(Character::isDigit)) {
+            throw new IllegalArgumentException("O documento deve conter apenas digitos numéricos");
         }
 
         // converter para lista de inteiros
