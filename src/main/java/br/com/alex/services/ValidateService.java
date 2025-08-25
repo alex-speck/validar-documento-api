@@ -15,12 +15,7 @@ public class ValidateService {
         LocalDateTime now = LocalDateTime.now(ZoneId.of("UTC-3"));
 
         if (document == null || document.length() != 11 && document.length() != 14) {
-            return new ValidateResponseDTO(
-                    document,
-                    false,
-                    "O documento deve conter 11 dígitos (CPF) ou 14 dígitos (CNPJ)",
-                    now
-            );
+            throw new IllegalArgumentException("O documento deve conter 11 dígitos (CPF) ou 14 dígitos (CNPJ)");
         }
 
         // converter para lista de inteiros
@@ -52,6 +47,8 @@ public class ValidateService {
                     isValid ? "CNPJ válido" : "CNPJ inválido", now);
         }
 
+
+        // fallback
         throw new IllegalArgumentException("O documento deve conter 11 dígitos (CPF) ou 14 dígitos (CNPJ)");
 
     }
