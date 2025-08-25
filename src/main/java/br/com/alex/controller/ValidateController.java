@@ -22,12 +22,13 @@ public class ValidateController {
     @Autowired
     private ValidateService validateService;
 
-    @GetMapping("/cpf/{cpf}")
-    public ResponseEntity<ValidateResponseDTO> validarCpf(@PathVariable("cpf") String cpf) {
-        if (validateService.cpfIsValid(cpf)) {
-            return ResponseEntity.ok(new ValidateResponseDTO(true, "Cpf informado é valido!", LocalDateTime.now(ZoneId.of("UTC-3"))));
+    @GetMapping("/{documento}")
+    public ResponseEntity<ValidateResponseDTO> validarCpf(@PathVariable("documento") String documento) {
+        try{
+            return ResponseEntity.ok(validateService.documentIsValid(documento));
+        }catch (Exception e) {
+            return ResponseEntity.badRequest().body(new ValidateResponseDTO(documento, false, e.getMessage(), LocalDateTime.now(ZoneId.of("UTC-3"))));
         }
-        return ResponseEntity.badRequest().body(new ValidateResponseDTO(false, "Cpf informado é inválido!", LocalDateTime.now(ZoneId.of("UTC-3"))));
     }
 
 }
